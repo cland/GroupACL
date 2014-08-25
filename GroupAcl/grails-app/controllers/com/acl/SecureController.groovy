@@ -8,11 +8,15 @@ class SecureController {
     def index() {
 		User curuser = springSecurityService.getCurrentUser()	
 	      String username = curuser?.username //principal.username
-	      def authorities = UserRoleGroup.findAllByUser(curuser).collect { it.roleGroup } // principal.authorities // a Collection of GrantedAuthority
+	      Set<RoleGroup> authorities = UserRoleGroup.findAllByUser(curuser).collect { it.roleGroup } // principal.authorities // a Collection of GrantedAuthority
 	     boolean enabled = curuser.enabled //principal.enabled
 		  
 		
-		 println(authorities)
+		 authorities.each{grp ->			 
+			 println ">> " + grp?.name
+			 println "\n-> " + grp?.getAuthorities()?.authority
+		 }
+		// println(authorities*.getAuthorities()?.authority)
 		  //check group
 		  
 		render 'Secure access only ' + username + " [" + authorities + "] - " + isLoggedIn() + " "
