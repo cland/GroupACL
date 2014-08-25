@@ -1,15 +1,15 @@
 package com.acl
 
 class Person {
-	String name
-
+	String firstName
+	String lastName
 	static belongsTo = [office:Office]
 	static hasMany = []
     static constraints = {
 		
     }
 	static mapping = {
-		phones cascade:"all-delete-orphan"
+		
 	}
 	
 	String toString(){

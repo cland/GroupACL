@@ -3,7 +3,7 @@ package com.acl
 class RoleGroup {
 
 	String name
-
+	String description
 	static mapping = {
 		cache true
 	}
@@ -14,5 +14,10 @@ class RoleGroup {
 
 	static constraints = {
 		name blank: false, unique: true
+		description nullable:true
+	}
+	
+	String toString(){
+		(!description?.equals("")? description : name)
 	}
 }
