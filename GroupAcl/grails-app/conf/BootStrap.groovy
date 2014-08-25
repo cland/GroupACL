@@ -41,29 +41,38 @@ class BootStrap {
 			 '/login.*', 
 			 '/login/*', 
 			 '/logout', 
-			 '/logout.*', 
+			 '/logout.*',
+			 '/secure/**', 
 			 '/logout/*']) {
 			 new Requestmap( url: url, configAttribute: 'permitAll').save() 
 		}
+		
+			 //admin
+			 for (String url in [ '/requestmap/**',
+				 '/role/**',
+				 '/roleGroup/**',
+				 '/user/**']) {
+				 new Requestmap( url: url, configAttribute: 'ROLE_ADMIN,isFullyAuthenticated()').save()
+			}
 	} //end method
 	
 	private void createUsers() {
-			def adminRole = new Role(authority:"ROLE_ADMIN").save()
-			def userRole = new Role(authority:"ROLE_USER").save()
+			def adminRole = new Role(authority:"ROLE_ADMIN").save(flush:true)
+			def userRole = new Role(authority:"ROLE_USER").save(flush:true)
 			
-			def adminGroup = new RoleGroup(authority:"GROUP_ADMIN").save()
-			def userGroup = new RoleGroup(authority:"GROUP_USER").save()
+			def adminGroup = new RoleGroup(name:"GROUP_ADMIN").save(flush:true)
+			def userGroup = new RoleGroup(name:"GROUP_USER").save(flush:true)
 			
 			RoleGroupRole.create adminGroup, adminRole
 			RoleGroupRole.create userGroup, userRole
 			
 			3.times {
 				long id = it + 1
-				def user = new User(username: "user$id", enabled: true, password: "password$id").save()
+				def user = new User(username: "user$id", enabled: true, password: "password$id").save(flush:true)
 				UserRoleGroup.create user, userGroup
 			}
 		
-			def admin = new User(username: 'admin', enabled: true, password: 'admin123').save()
+			def admin = new User(username: 'admin', enabled: true, password: 'admin123').save(flush:true)
 		
 			UserRoleGroup.create admin, userGroup
 			UserRoleGroup.create admin, adminGroup, true

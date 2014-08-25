@@ -1,16 +1,16 @@
 package com.acl
 
-
-
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+
 @Transactional(readOnly = true)
 class RequestmapController {
-
+	def springSecurityService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
+		
         params.max = Math.min(max ?: 10, 100)
         respond Requestmap.list(params), model:[requestmapInstanceCount: Requestmap.count()]
     }
@@ -36,7 +36,7 @@ class RequestmapController {
         }
 
         requestmapInstance.save flush:true
-
+		springSecurityService.clearCachedRequestmaps()
         request.withFormat {
             form {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'requestmapInstance.label', default: 'Requestmap'), requestmapInstance.id])
@@ -63,7 +63,7 @@ class RequestmapController {
         }
 
         requestmapInstance.save flush:true
-
+		springSecurityService.clearCachedRequestmaps()
         request.withFormat {
             form {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Requestmap.label', default: 'Requestmap'), requestmapInstance.id])
@@ -82,7 +82,7 @@ class RequestmapController {
         }
 
         requestmapInstance.delete flush:true
-
+		springSecurityService.clearCachedRequestmaps()
         request.withFormat {
             form {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'Requestmap.label', default: 'Requestmap'), requestmapInstance.id])
