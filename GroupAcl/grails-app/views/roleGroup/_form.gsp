@@ -10,3 +10,11 @@
 	<g:textField name="name" required="" value="${roleGroupInstance?.name}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: roleGroupInstance, field: 'description', 'error')} ">
+	<label for="description">
+		<g:message code="roleGroup.description.label" default="Description" />
+		
+	</label>
+	<g:textField name="description" value="${roleGroupInstance?.description}"/>
+</div>
+

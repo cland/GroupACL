@@ -10,6 +10,7 @@
 	<g:textField name="username" required="" value="${userInstance?.username}"/>
 </div>
 
+<g:if test="${params?.action  == "create" }">
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required">
 	<label for="password">
 		<g:message code="user.password.label" default="Password" />
@@ -17,7 +18,7 @@
 	</label>
 	<g:textField name="password" required="" value="${userInstance?.password}"/>
 </div>
-
+</g:if>
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'accountExpired', 'error')} ">
 	<label for="accountExpired">
 		<g:message code="user.accountExpired.label" default="Account Expired" />

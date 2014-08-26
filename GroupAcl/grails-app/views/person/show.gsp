@@ -51,6 +51,14 @@
 				</g:if>
 			
 			</ol>
+			
+			<div style="padding-left:50px;"><H3>Access Rights</H3>
+				<ul>
+					<g:each in="${personInstance?.authorities }" var="role">
+						<li>${role.name} &raquo; ${role.description }</li>
+					</g:each>
+				</ul>
+			</div>
 			<g:form url="[resource:personInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
 					<g:link class="edit" action="edit" resource="${personInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>

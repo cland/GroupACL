@@ -95,13 +95,29 @@ def groupManagerService
 			 '/logout/*']) {
 			 new Requestmap( url: url, configAttribute: 'permitAll').save()
 		}
+			 // show and lists/index
+			 for (String url in [
+				 '/**/show/**',
+				  '/**/index/**']) {
+				  new Requestmap( url: url, configAttribute:'isFullyAuthenticated()').save()
+			 }
 		
-			 //admin
+			 //editing for office admin
+			 for (String url in [ 
+				 '/**/create/*',
+				 '/**/save/*',
+				 '/**/update/*',
+				 '/**/edit/*',]) {
+				  new Requestmap( url: url, configAttribute:  SystemRoles.ROLE_ADMIN.value + ',' + SystemRoles.ROLE_OCO.value).save()
+			 }
+			 
+			
+			 //strictly admin
 			 for (String url in [ '/requestmap/**',
 				 '/role/**',
-				 '/roleGroup/**',
+				 '/roleGroup/**',				 
 				 '/user/**']) {
-				 new Requestmap( url: url, configAttribute: 'ROLE_ADMIN').save()
+				 new Requestmap( url: url, configAttribute: SystemRoles.ROLE_ADMIN.value).save()
 			}
 	} //end method
 } //

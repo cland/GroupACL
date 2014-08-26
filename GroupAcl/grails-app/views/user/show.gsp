@@ -32,14 +32,7 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${userInstance?.password}">
-				<li class="fieldcontain">
-					<span id="password-label" class="property-label"><g:message code="user.password.label" default="Password" /></span>
-					
-						<span class="property-value" aria-labelledby="password-label"><g:fieldValue bean="${userInstance}" field="password"/></span>
-					
-				</li>
-				</g:if>
+				
 			
 				<g:if test="${userInstance?.accountExpired}">
 				<li class="fieldcontain">
@@ -68,16 +61,19 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${userInstance?.passwordExpired}">
-				<li class="fieldcontain">
-					<span id="passwordExpired-label" class="property-label"><g:message code="user.passwordExpired.label" default="Password Expired" /></span>
-					
-						<span class="property-value" aria-labelledby="passwordExpired-label"><g:formatBoolean boolean="${userInstance?.passwordExpired}" /></span>
-					
-				</li>
-				</g:if>
+				
 			
 			</ol>
+			
+			
+			<div  style="padding-left:50px;">
+			<H3>Access Rights</H3>
+				<ul>
+					<g:each in="${userInstance?.authorities }" var="role">
+						<li>${role.name} &raquo; ${role.description }</li>
+					</g:each>
+				</ul>
+			</div>
 			<g:form url="[resource:userInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
 					<g:link class="edit" action="edit" resource="${userInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>

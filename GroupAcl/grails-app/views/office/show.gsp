@@ -46,13 +46,46 @@
 					<span id="staff-label" class="property-label"><g:message code="office.staff.label" default="Staff" /></span>
 					
 						<g:each in="${officeInstance.staff}" var="s">
-						<span class="property-value" aria-labelledby="staff-label"><g:link controller="person" action="show" id="${s.id}">${s?.encodeAsHTML()}</g:link></span>
+							<span class="property-value" aria-labelledby="staff-label">
+								<g:link controller="person" action="show" id="${s.id}">${s?.encodeAsHTML()}</g:link>
+								<ul>
+									<g:each in="${s?.authorities }" var="role">
+										<li>${role.name} &raquo; ${role.description }</li>
+									</g:each>
+								</ul>
+								
+							</span>
 						</g:each>
 					
 				</li>
 				</g:if>
 			
 			</ol>
+			<br/><h2>Groups</h2>
+			<div>
+				<table>
+				<thead>
+					<tr>
+					
+						<g:sortableColumn property="name" title="${message(code: 'roleGroup.name.label', default: 'Name')}" />
+					
+						<g:sortableColumn property="description" title="${message(code: 'roleGroup.description.label', default: 'Description')}" />
+					
+					</tr>
+				</thead>
+				<tbody>
+				<g:each in="${officeInstance?.officeGroups}" status="i" var="roleGroupInstance">
+					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+					
+						<td><g:link controller="roleGroup" action="show" id="${roleGroupInstance.id}">${fieldValue(bean: roleGroupInstance, field: "name")}</g:link></td>
+					
+						<td>${fieldValue(bean: roleGroupInstance, field: "description")}</td>
+					
+					</tr>
+				</g:each>
+				</tbody>
+				</table>
+			</div>
 			<g:form url="[resource:officeInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
 					<g:link class="edit" action="edit" resource="${officeInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
