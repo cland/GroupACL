@@ -56,7 +56,7 @@ def groupManagerService
 				groupManagerService.addUserToGroup(user, mainOffice, SystemRoles.list())
 			}
 		
-			println ">> Createing admin user..."
+			println ">> Creating admin user..."
 			def admin = new User(username: 'admin', enabled: true, password: 'admin123',person:personAdmin).save(flush:true)
 		
 			UserRoleGroup.create admin, devGroup

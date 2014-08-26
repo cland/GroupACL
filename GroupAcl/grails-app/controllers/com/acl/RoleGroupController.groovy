@@ -7,7 +7,7 @@ import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class RoleGroupController {
-
+	def springSecurityService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -36,7 +36,7 @@ class RoleGroupController {
         }
 
         roleGroupInstance.save flush:true
-
+		springSecurityService.clearCachedRequestmaps()
         request.withFormat {
             form {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'roleGroupInstance.label', default: 'RoleGroup'), roleGroupInstance.id])
@@ -63,7 +63,7 @@ class RoleGroupController {
         }
 
         roleGroupInstance.save flush:true
-
+		springSecurityService.clearCachedRequestmaps()
         request.withFormat {
             form {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'RoleGroup.label', default: 'RoleGroup'), roleGroupInstance.id])
@@ -82,7 +82,7 @@ class RoleGroupController {
         }
 
         roleGroupInstance.delete flush:true
-
+		springSecurityService.clearCachedRequestmaps()
         request.withFormat {
             form {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'RoleGroup.label', default: 'RoleGroup'), roleGroupInstance.id])
