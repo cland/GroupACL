@@ -7,7 +7,7 @@ import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class OfficeController {
-
+	def groupManagerService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -37,6 +37,9 @@ class OfficeController {
 
         officeInstance.save flush:true
 
+		//generate groups
+		groupManagerService.generateOfficeGroups(officeInstance)
+		
         request.withFormat {
             form {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'officeInstance.label', default: 'Office'), officeInstance.id])
@@ -63,7 +66,10 @@ class OfficeController {
         }
 
         officeInstance.save flush:true
-
+		if(params?.gengrps == true){
+			//generate groups
+			groupManagerService.generateOfficeGroups(officeInstance)
+		}
         request.withFormat {
             form {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Office.label', default: 'Office'), officeInstance.id])

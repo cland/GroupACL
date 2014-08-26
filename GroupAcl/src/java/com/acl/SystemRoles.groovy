@@ -7,7 +7,6 @@ public enum SystemRoles {
 	
 	//NATIONAL LEVEL
 	ROLE_NCO("ROLE_NCO","National Co-Ordinator"),
-	ROLE_MEO("ROLE_MEO","Monitoring and Evaluation"),
 	
 	//REGIONAL LEVEL
 	ROLE_PCO("ROLE_PCO","Provincial Co-Ordinator"),
@@ -16,8 +15,8 @@ public enum SystemRoles {
 	ROLE_OCO("ROLE_OCO","Office Co-Ordinator"),	
 	ROLE_CWO("ROLE_CWO","Case Worker Officer"),
 	ROLE_SPO("ROLE_SPO","Special Case Worker"),
-	ROLE_REVIEWER("ROLE_REVIEWER","View Only")
-	
+	ROLE_REVIEWER("ROLE_READER_FULL","Can Read Full Only"),
+	ROLE_READER("ROLE_READER_LIMITED","Can Read Limited Only")
 	final String value;
 	final String description;
 	SystemRoles(String value) {
@@ -45,7 +44,7 @@ public enum SystemRoles {
 			ROLE_OCO,
 			ROLE_CWO,
 			ROLE_SPO,
-			ROLE_MEO
+			ROLE_READER
 			]
 	}
 }

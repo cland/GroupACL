@@ -104,10 +104,10 @@ def groupManagerService
 		
 			 //editing for office admin
 			 for (String url in [ 
-				 '/**/create/*',
-				 '/**/save/*',
-				 '/**/update/*',
-				 '/**/edit/*',]) {
+				 '/**/create/**',
+				 '/**/save/**',
+				 '/**/update/**',
+				 '/**/edit/**',]) {
 				  new Requestmap( url: url, configAttribute:  SystemRoles.ROLE_ADMIN.value + ',' + SystemRoles.ROLE_OCO.value).save()
 			 }
 			 
