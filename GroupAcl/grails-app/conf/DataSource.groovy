@@ -15,8 +15,8 @@ hibernate {
 environments {
     development {
         dataSource {
-            username = "root"
-			password = "Cland001"
+            username = "tester"
+			password = "password"
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:mysql://localhost:3306/grpacl_dev?autoreconnect=true"
         }

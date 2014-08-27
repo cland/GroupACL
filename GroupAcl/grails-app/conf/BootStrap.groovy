@@ -97,6 +97,7 @@ def groupManagerService
 		}
 			 // show and lists/index
 			 for (String url in [
+				 '/acl/**/**',
 				 '/**/show/**',
 				  '/**/index/**']) {
 				  new Requestmap( url: url, configAttribute:'isFullyAuthenticated()').save()
